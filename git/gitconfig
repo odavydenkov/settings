@@ -1,6 +1,6 @@
 [user]
 	name = Oleg Davydenkov
-	email = opdavydenkov@avito.ru
+	email = oleg@davydenkov.com 
 [alias]
         br = branch
         ci = commit -m
@@ -28,6 +28,3 @@
 	npush = push -u origin HEAD 
 	mpush = "!f() { git ad; git ci \"$(git rev-parse --abbrev-ref HEAD | cut -d \"-\" -f 1,2): $1\"; git npush; }; f"
 	repush = "!f() { git ad; git cam; git npush; }; f"
-[core]
-	excludesfile = /Users/opdavydenkov/.gitignore_global
-	hooksPath = /users/opdavydenkov/githooks
