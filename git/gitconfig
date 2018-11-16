@@ -1,0 +1,33 @@
+[user]
+	name = Oleg Davydenkov
+	email = opdavydenkov@avito.ru
+[alias]
+        br = branch
+        ci = commit -m
+        cm = checkout master
+        co = checkout
+        di = diff
+        ds = diff --staged
+        f = fetch
+        l = log --oneline
+        last = log -1
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        mm = merge master
+        ms = merge --squash
+        pr = pull --rebase
+        re = rebase
+        remotes = remote -v
+        rh = reset --hard
+        ri = rebase -i
+        sp = stash pop
+        st = status
+        stashes = stash list
+        tags = tag --list
+	ad = add .
+	cam = commit --amend --no-edit
+	npush = push -u origin HEAD 
+	mpush = "!f() { git ad; git ci \"$(git rev-parse --abbrev-ref HEAD | cut -d \"-\" -f 1,2): $1\"; git npush; }; f"
+	repush = "!f() { git ad; git cam; git npush; }; f"
+[core]
+	excludesfile = /Users/opdavydenkov/.gitignore_global
+	hooksPath = /users/opdavydenkov/githooks
