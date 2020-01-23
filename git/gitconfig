@@ -1,6 +1,6 @@
 [user]
-	name = Oleg Davydenkov
-	email = oleg@davydenkov.com 
+name = Oleg Davydenkov
+email = opdavydenkov@avito.ru
 [alias]
         br = branch
         ci = commit -m
@@ -23,8 +23,22 @@
         st = status
         stashes = stash list
         tags = tag --list
-	ad = add .
-	cam = commit --amend --no-edit
-	npush = push -u origin HEAD 
-	mpush = "!f() { git ad; git ci \"$(git rev-parse --abbrev-ref HEAD | cut -d \"-\" -f 1,2): $1\"; git npush; }; f"
-	repush = "!f() { git ad; git cam; git npush; }; f"
+        ad = add .
+        cam = commit --amend --no-edit
+npush = push -u origin HEAD
+mpush = "!f() { git ad; git ci \"$(git rev-parse --abbrev-ref HEAD | cut -d \"-\" -f 1,2): $1\"; git npush; }; f"
+repush = "!f() { git ad; git cam; git npush; }; f"
+rb = "!f() { git push origin --delete $(git rev-parse --abbrev-ref HEAD); }; f"
+recreate = "!f() { git ad; git cam; git rb; git npush; }; f"
+bblame = "!f() { git blame $@ | sed \"s/$(git config --get user.name)/kapitalniy krasauchek   /\"; }; f"
+commit-branch = "!f() { git ad && git commit -m \"$(git branch | grep '*' | cut -d ' ' -f 2 | cut -d '-' -f 1,2) $(git branch | grep '*' | cut -d '-' -f 3- | sed 's/-/ /g')\"; }; f"
+commit-and-push-branch = "!f() { git commit-branch && git push origin $(git branch | grep '*' | cut -d ' ' -f 2); }; f"
+commit-and-push-branch-and-open-pull-request = "!f() { git commit-and-push-branch 2>&1 | grep "http://stash.msk.avito.ru/" | awk '{print $2}' | xargs -0 -n 1 open; }; f"
+[core]
+       excludesfile = /Users/opdavydenkov/.gitignore_global
+       hooksPath = /users/opdavydenkov/githooks
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
